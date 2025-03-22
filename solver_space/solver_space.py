@@ -20,11 +20,12 @@ app = rx.App()
 # Define base layout
 def base_layout(content: rx.Component) -> rx.Component:
     """Base layout for all pages."""
-    return rx.vstack(
+    return rx.box(
         navbar(),
         content,
+        bg="black",
+        color="white",
         min_height="100vh",
-        spacing="0",
     )
 
 # Create wrapped page components

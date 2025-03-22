@@ -2,47 +2,49 @@ import reflex as rx
 from ...models.user import AuthState
 
 def login_form() -> rx.Component:
-    """Login form component."""
+    """Create a login form."""
     return rx.vstack(
         rx.heading("Login", size="3"),
         rx.form(
             rx.vstack(
                 rx.input(
                     placeholder="Email",
-                    type="email",
                     id="email",
+                    type="email",
+                    required=True,
                 ),
                 rx.input(
                     placeholder="Password",
-                    type="password",
                     id="password",
+                    type="password",
+                    required=True,
                 ),
                 rx.button(
                     "Login",
                     type="submit",
                     width="100%",
-                    size="2",
                     is_loading=AuthState.processing,
                 ),
-                rx.button(
+                rx.link(
                     "Sign up",
-                    variant="outline",
-                    width="100%",
-                    size="2",
-                    on_click=rx.redirect("/signup"),
+                    href="/signup",
+                    color="blue.500",
+                    _hover={"text_decoration": "none"},
                 ),
-                rx.cond(
-                    AuthState.error,
-                    rx.text(AuthState.error, color="red"),
-                ),
+                spacing="4",
             ),
             on_submit=AuthState.handle_login_form,
-            width="100%",
-            spacing="4",
         ),
-        spacing="4",
+        rx.cond(
+            AuthState.error,
+            rx.callout(
+                AuthState.error,
+                color_scheme="red",
+                class_name="error-message",
+            ),
+        ),
         width="100%",
-        max_width="400px",
-        margin="auto",
-        padding="4",
+        max_width="400",
+        spacing="4",
+        py="4",
     )

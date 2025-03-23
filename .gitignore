@@ -14,4 +14,4 @@ wheels/
 # Virtual environments
 .venv
 .env
-
+.env.test

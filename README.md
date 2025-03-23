@@ -193,3 +193,70 @@ Visit `http://localhost:3000` to see your application.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## Security Features
+
+### Username Validation
+
+The application implements strict username validation following security best practices:
+
+#### Requirements
+
+- Length: 3-30 characters
+- Must start with a letter
+- Can contain only:
+  - Letters (a-z, A-Z)
+  - Numbers (0-9)
+  - Underscores (_)
+
+#### Security Measures
+
+1. **Homograph Attack Prevention**
+   - Only ASCII letters allowed
+   - Non-Latin characters are rejected
+   - Prevents Unicode-based impersonation attacks
+
+2. **Reserved Username Protection**
+   - System-critical usernames are reserved
+   - Includes administrative and service accounts
+   - Case-insensitive comparison
+
+3. **Unicode Security**
+   - NFKC normalization
+   - Consistent character handling
+   - No mixed-script attacks possible
+
+4. **Input Sanitization**
+   - Safe handling of invalid input
+   - Consistent normalization
+   - Secure storage format
+
+#### Error Messages
+
+Users receive clear, actionable feedback:
+- Length violations
+- Format requirements
+- Reserved username notifications
+
+#### Implementation
+
+The validation is implemented in `solver_space/utils/validators.py` using a security-first approach:
+```python
+# Example valid usernames
+valid_user_123
+ValidUser
+my_username
+
+# Example invalid usernames
+123user     # Can't start with number
+user@name   # No special characters
+аdmin       # No Unicode characters (looks like 'admin')
+```
+
+### Additional Security Features
+
+[Other security features of your application...]
+
+## Getting Started
+
+[Your existing getting started guide...]
+
